@@ -152,7 +152,7 @@ while True:
 
     print('-' * 80)
 
-    deseja_continuar = input('Informe qualquer alfnumerico pra continuar ou espaço/Enter pra encerrar: ')
+    deseja_continuar = input('Informe qualquer alfnumerico pra continuar ou Enter pra encerrar: ')
 
     if not len(deseja_continuar.strip()):
         print('Programa Encerrado!')

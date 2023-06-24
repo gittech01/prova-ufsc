@@ -94,11 +94,13 @@ else:
             nome_atleta_com_pior_tempo = nome
             pior_tempo = nome_tempo[nome]
 
-    print(nome_atleta_com_pior_tempo, pior_tempo)
+    print('a) O nome e o pior tempo do atleta que possui o pior tempo entre todos.')
+    print(f'   -- Nome atleta: {nome_atleta_com_pior_tempo}')
+    print(f'   -- Pior tempo: {pior_tempo}')
 
 
 # b) O nome da esposa e o tempo do atleta que possui o melhor tempo.
-# nome e o menor tempo
+# nome e o maior tempo
 nome_tempo = {}
 
 for key in dic_prova.keys():
@@ -112,14 +114,17 @@ else:
             maior_tempo = nome_tempo[nome]
             continue
 
-        if pior_tempo < nome_tempo[nome]:
+        if maior_tempo < nome_tempo[nome]:
             nome_esposa_atleta_com_maior_tempo = dic_prova.get(nome)[1][0]
             maior_tempo = nome_tempo[nome]
 
-    print(nome_esposa_atleta_com_maior_tempo, maior_tempo)
+    print('b) O nome da esposa e o tempo do atleta que possui o melhor tempo.')
+    print(f'   -- Nome esposa: {nome_esposa_atleta_com_maior_tempo}')
+    print(f'   -- Melhor tempo: {maior_tempo}')
 
 
 # c) A média total de todos os tempos dos medalhistas olímpicos.
+# media dos tempos
 media = []
 
 for key in dic_prova.keys():
@@ -130,8 +135,161 @@ for key in dic_prova.keys():
 else:
     media = sum(media)/len(media)
 
-    print(f'Média: {media:.2f}')
+    print('c) A média total de todos os tempos dos medalhistas olímpicos.')
+    print(f'   -- Média total de todos medalhista: {media:.2f}')
 
 
+# d) O nome e a média dos tempos do atleta cuja esposa recebe o maior salário.
+nome_tempo = {}
+
+for key in dic_prova.keys():
+    nome_tempo[key] = dic_prova.get(key)[1]
+else:
+    salario = 0
+    media_tempo_atleta = 0
+    nome_atleta_esposa_maior_salario = ''
+    for indice, nome in enumerate(nome_tempo.keys()):
+
+        if indice == 0:
+            salario = nome_tempo.get(nome)[1]
+            media_tempo_atleta = sum(dic_prova.get(nome)[0])/len(dic_prova.get(nome)[0])
+            nome_atleta_esposa_maior_salario = nome
+            continue
+
+        if salario < nome_tempo.get(nome)[1]:
+            salario = nome_tempo.get(nome)[1]
+            nome_atleta_esposa_maior_salario = nome
+            media_tempo_atleta = sum(dic_prova.get(nome)[0])/len(dic_prova.get(nome)[0])
+
+    print('d) O nome e a média dos tempos do atleta cuja esposa recebe o maior salário.')
+    print(f'   -- Nome do atleta: {nome_atleta_esposa_maior_salario}')
+    print(f'   -- Média tempo: {media_tempo_atleta}')
+
+
+# e) Os nomes do casal cuja esposa recebe o pior salário.
+# f) O somatório dos salários das esposas de todos os atletas.
+nome_tempo = {}
+
+for key in dic_prova.keys():
+    nome_tempo[key] = dic_prova.get(key)[1]
+else:
+    soma_salario_esposas = 0
+    salario = 0
+    nome_atleta_esposa_com_pior_salario = 0
+    nome_esposa_com_pior_salario = ''
+    for indice, nome in enumerate(nome_tempo.keys()):
+        soma_salario_esposas += nome_tempo.get(nome)[1]
+        if indice == 0:
+            salario = nome_tempo.get(nome)[1]
+            nome_atleta_esposa_com_pior_salario = nome
+            nome_esposa_com_pior_salario = nome_tempo.get(nome)[0]
+            continue
+
+        if salario > nome_tempo.get(nome)[1]:
+            salario = nome_tempo.get(nome)[1]
+            nome_atleta_esposa_com_pior_salario = nome
+            nome_esposa_com_pior_salario = nome_tempo.get(nome)[0]
+
+    print(f'e) Os nomes do casal cuja esposa tem o pior salário: ')
+    print(f'   -- Atleta: {nome_atleta_esposa_com_pior_salario} ')
+    print(f'   -- Esposa: {nome_esposa_com_pior_salario}')
+    print('f) O somatório dos salários das esposas de todos os atletas: ')
+    print(f'   -- Somatório dos salários: R$ {soma_salario_esposas}')
+
+
+# g) O melhor e o pior tempo do não medalhista olímpico.
+nome_tempo = {}
+
+nome_atleta_pior_tempo_nmedalhista = ''
+pior_tempo_nmedalhista = 0
+
+nome_atleta_maior_tempo_nmedalhista = ''
+maior_tempo_nmedalhista = 0
+
+for nome in dic_prova.keys():
+    if not dic_prova.get(nome)[2]:
+        nome_tempo[nome] = dic_prova.get(nome)[0]
+else:
+    for indice, nome in enumerate(nome_tempo.keys()):
+        if indice == 0:
+            nome_atleta_pior_tempo_nmedalhista = nome
+            pior_tempo_nmedalhista = min(nome_tempo.get(nome))
+
+            nome_atleta_maior_tempo_nmedalhista = nome
+            maior_tempo_nmedalhista = max(nome_tempo.get(nome))
+            continue
+
+        if pior_tempo_nmedalhista > min(nome_tempo.get(nome)):
+            nome_atleta_pior_tempo_nmedalhista = nome
+            pior_tempo_nmedalhista = min(nome_tempo.get(nome))
+
+        if maior_tempo_nmedalhista < max(nome_tempo.get(nome)):
+            nome_atleta_maior_tempo_nmedalhista = nome
+            maior_tempo_nmedalhista = max(nome_tempo.get(nome))
+
+    print('g) O melhor e o pior tempo do não medalhista olímpico:')
+    print(f'   -- Nome atleta pior tempo: {nome_atleta_pior_tempo_nmedalhista} --> Pior Tempo: {pior_tempo_nmedalhista}')
+    print(f'   -- Nome atleta melhor tempo: {nome_atleta_maior_tempo_nmedalhista} --> Melhor tempo: {maior_tempo_nmedalhista}')
+
+
+# h) Os nomes do casal que possui a maior quantidade de letra somadas no seu nome.
+nome_atlela_esposa = {}
+comprimento = 0
+for nome in dic_prova.keys():
+    nome_atlela_esposa[nome] = dic_prova.get(nome)[1][0]
+else:
+    comprimento = 0
+    atleta_esposa = []
+    for indice, nome in enumerate(nome_atlela_esposa.keys()):
+        comprimento_nomes = len(nome) + len(nome_atlela_esposa.get(nome))
+        if indice == 0:
+            comprimento = comprimento_nomes
+            atleta_esposa.append([nome, nome_atlela_esposa.get(nome)])
+            continue
+
+        if comprimento < comprimento_nomes:
+            comprimento = comprimento_nomes
+            atleta_esposa.pop()
+            atleta_esposa.append([nome, nome_atlela_esposa.get(nome)])
+
+    print('h) Os nomes do casal que possui a maior quantidade de letra somadas no seu nome:')
+    print(f'   -- Atleta: {atleta_esposa[0][0]}')
+    print(f'   -- Esposa: {atleta_esposa[0][1]}')
+
+
+# i) Os nomes de todas as esposas ordenados alfabeticamente pelos últimos sobrenomes.
+ordena_nome_esposas = {}
+
+for nome in dic_prova.keys():
+    esposa = dic_prova.get(nome)[1][0]
+    ultimo_sobrenome = esposa.rsplit(' ', maxsplit=1)[1]
+    ordena_nome_esposas[ultimo_sobrenome] = esposa
+else:
+    ultimo_sobrenome = list(ordena_nome_esposas.keys())
+    ultimo_sobrenome.sort()
+
+    print('i) Os nomes de todas as esposas ordenados alfabeticamente pelos últimos sobrenomes:')
+    for nome in ultimo_sobrenome:
+        print(f'   -- {ordena_nome_esposas.get(nome)}')
+
+
+# j) Uma lista de todos os nomes (atletas e esposas) organizados alfabeticamente em ordem inversa pelos primeiro nome.
+ordena_nome = {}
+
+for nome in dic_prova.keys():
+
+    primeior_nome_esposa = dic_prova.get(nome)[1][0].split(' ')[0]
+    ordena_nome[primeior_nome_esposa] = dic_prova.get(nome)[1][0]
+
+    primeiro_nome_atleta = nome.split(' ')[0]
+    ordena_nome[primeiro_nome_atleta] = nome
+
+else:
+    primeiro_nome = list(ordena_nome.keys())
+    primeiro_nome.sort()
+
+    print('i) Os nomes de todas as esposas ordenados alfabeticamente pelos últimos sobrenomes:')
+    for nome in primeiro_nome:
+        print(f'   -- {ordena_nome.get(nome)}')
 
 
